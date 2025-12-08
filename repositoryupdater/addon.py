@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -607,3 +608,8 @@ class Addon:
             data["date"] = self.current_commit.last_modified
 
         return data
+
+    def cleanup(self):
+        """Cleanup after you leave."""
+        if hasattr(self, 'git_repo'):
+            shutil.rmtree(self.git_repo.working_dir, True)
